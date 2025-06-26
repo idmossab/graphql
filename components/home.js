@@ -1,8 +1,8 @@
 import { app_state } from "../controllers/app_state.js";
-import { fetch_user_info } from "../controllers/requests.js";
+import { fetch_user_info, fetch_xp_pe_project } from "../controllers/requests.js";
 import { navigateTo } from "../controllers/router.js";
 
-export function render_home_page() {
+export async function render_home_page() {
     if(!app_state.is_logged){
         navigateTo("/login")
     }
@@ -28,4 +28,5 @@ export function render_home_page() {
     }, 200)
 
     fetch_user_info()
+    await fetch_xp_pe_project()
 }
