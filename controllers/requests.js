@@ -1,4 +1,5 @@
 import { app_state } from "./app_state.js";
+import { render_fail_pass } from "./fail_pass.js";
 import { render_user_profile } from "./profle.js";
 import { get_JWT } from "./token.js";
 import { handle_transaction } from "./transactions.js";
@@ -39,6 +40,7 @@ export function fetch_user_info() {
     const query = `
         query {
             user {
+            id
                 firstName
                 lastName
                 login
@@ -108,7 +110,46 @@ export async function fetch_xp_pe_project() {
             return response.json();
         })
         .then(data => {
-           handle_transaction(data.data.transaction)
+            handle_transaction(data.data.transaction)
+        })
+        .catch(error => {
+            console.error("GraphQL error:", error.message);
+            alert("Could not fetch user data: " + error.message);
+        });
+}
+
+
+// fetch xp per project:
+export async function fetch_fail_pass_ratio() {
+    let token = get_JWT()
+    if (token == null) {
+        alert("error retreiving JWT: " + error.message);
+        return
+    }
+    const query = `     
+     query
+        {
+          progress(where: {userId:{_eq: 6795}}){
+          grade
+          }
+        }`
+
+    fetch("https://learn.zone01oujda.ma/api/graphql-engine/v1/graphql", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({ query })
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Unauthorized or request failed");
+            }
+            return response.json();
+        })
+        .then(data => {
+            render_fail_pass(data)
         })
         .catch(error => {
             console.error("GraphQL error:", error.message);

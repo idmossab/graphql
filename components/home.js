@@ -1,5 +1,5 @@
 import { app_state } from "../controllers/app_state.js";
-import { fetch_user_info, fetch_xp_pe_project } from "../controllers/requests.js";
+import { fetch_user_info, fetch_xp_pe_project, fetch_fail_pass_ratio } from "../controllers/requests.js";
 import { navigateTo } from "../controllers/router.js";
 
 export async function render_home_page() {
@@ -28,5 +28,6 @@ export async function render_home_page() {
     }, 200)
 
     fetch_user_info()
-    await fetch_xp_pe_project()
+    fetch_xp_pe_project()
+    fetch_fail_pass_ratio()
 }
