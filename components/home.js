@@ -3,7 +3,7 @@ import { fetch_user_info, fetch_xp_pe_project, fetch_fail_pass_ratio } from "../
 import { navigateTo } from "../controllers/router.js";
 
 export async function render_home_page() {
-    if(!app_state.is_logged){
+    if (!app_state.is_logged) {
         navigateTo("/login")
     }
     console.log("the tocken is: ", app_state.access_token);
@@ -11,9 +11,20 @@ export async function render_home_page() {
 
     let container = document.getElementById("main_container")
     container.innerHTML = ""
+
     container.innerHTML = `
-        <button id="get_token">get token</button>
-        <p id="display_token"></p>
+        <main class="main-content">
+        <div class="content-header">
+            <h1>Dashboard</h1>
+            <p>Welcome to your personal dashboard</p>
+        </div>
+        
+        <div class="content-body">
+            <h2>Main Content Area</h2>
+            <p>This is where your main application content would go. The user profile is displayed in the sidebar on the left.</p>
+            <p>The profile will automatically load when the page opens, and you can refresh it using the button in the sidebar.</p>
+        </div>
+    </main>
     `
 
     setTimeout(() => {
