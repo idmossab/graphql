@@ -1,5 +1,7 @@
-import { app_state } from "./app_state.js";
-import { navigateTo } from "./router.js";
+// import { app_state } from "./app_state.js";
+// import { navigateTo } from "./router.js";
+import { app_state } from "../controllers/app_state.js";
+import { navigateTo } from "../controllers/router.js";
 
 // Set up login form handler
 export function handle_login() {
@@ -16,7 +18,7 @@ export function handle_login() {
 }
 
 
-function login_user() {
+export function login_user() {
     console.log("Login submitted...");
 
     const identifier = document.getElementById("identifier").value.trim();

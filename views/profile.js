@@ -1,6 +1,4 @@
 export function render_user_profile(user){
-    console.log("the received user is: ", user);
-    
             const container = document.getElementById('profile_container');
             
             if (!user) {

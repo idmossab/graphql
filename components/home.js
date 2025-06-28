@@ -1,5 +1,5 @@
 import { app_state } from "../controllers/app_state.js";
-import {fetch_data } from "../controllers/fetch.js";
+import { fetch_data } from "../controllers/fetch.js";
 import { navigateTo } from "../controllers/router.js";
 
 export async function render_home_page() {
@@ -16,7 +16,16 @@ export async function render_home_page() {
     container.innerHTML = `
         <main class="main-content">
         <div class="audit-ratio">
-            <h3>Audit ratio:</h3>
+            <h4>Audit ratio</h4>
+            <div id="svg_ratio">
+         
+            
+            </div>
+            <div id="given_taken">
+            <div id="definition">
+            
+            </div>
+            </div>
         </div>
         
         <div class="content-body">

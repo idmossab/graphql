@@ -1,4 +1,4 @@
-import { handle_login } from "../controllers/authentification.js"; // or wherever it's defined
+import { handle_login } from "../views/authentification.js";
 
 export function render_login_form() {
     let container = document.getElementById("main_container");
@@ -10,6 +10,5 @@ export function render_login_form() {
         </form>
     `;
 
-    // ✅ Call this AFTER injecting HTML to attach logic
     handle_login();
 }
