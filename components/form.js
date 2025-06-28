@@ -1,4 +1,4 @@
-import { handle_login } from "../controllers/login.js"; // or wherever it's defined
+import { handle_login } from "../controllers/authentification.js"; // or wherever it's defined
 
 export function render_login_form() {
     let container = document.getElementById("main_container");

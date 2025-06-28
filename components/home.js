@@ -1,11 +1,12 @@
 import { app_state } from "../controllers/app_state.js";
-import { fetch_user_info, fetch_xp_pe_project, fetch_fail_pass_ratio } from "../controllers/requests.js";
+import {fetch_data } from "../controllers/fetch.js";
 import { navigateTo } from "../controllers/router.js";
 
 export async function render_home_page() {
     if (!app_state.is_logged) {
         navigateTo("/login")
     }
+
     console.log("the tocken is: ", app_state.access_token);
     console.log("the tocken is: ", app_state.is_logged);
 
@@ -14,9 +15,8 @@ export async function render_home_page() {
 
     container.innerHTML = `
         <main class="main-content">
-        <div class="content-header">
-            <h1>Dashboard</h1>
-            <p>Welcome to your personal dashboard</p>
+        <div class="audit-ratio">
+            <h3>Audit ratio:</h3>
         </div>
         
         <div class="content-body">
@@ -26,19 +26,5 @@ export async function render_home_page() {
         </div>
     </main>
     `
-
-    setTimeout(() => {
-        const get_token = document.getElementById("get_token");
-        console.log(get_token);
-
-        if (get_token) {
-            get_token.addEventListener("click", () => {
-                document.getElementById("display_token").textContent = app_state.access_token;
-            });
-        }
-    }, 200)
-
-    fetch_user_info()
-    fetch_xp_pe_project()
-    fetch_fail_pass_ratio()
+    fetch_data()
 }

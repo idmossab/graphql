@@ -66,3 +66,9 @@ function isValidJWT(token) {
     return token && token.split(".").length === 3;
 }
 
+export function logout_user() {
+    app_state.access_token = null;
+    app_state.is_logged = false;
+    localStorage.clear();
+    navigateTo("/login");
+}

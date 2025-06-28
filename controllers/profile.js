@@ -1,6 +1,6 @@
 export function render_user_profile(user){
-            console.log("The received user: ", user);
-            
+    console.log("the received user is: ", user);
+    
             const container = document.getElementById('profile_container');
             
             if (!user) {
@@ -35,12 +35,6 @@ export function render_user_profile(user){
                                 <div class="profile-detail">
                                     <strong>Campus</strong>
                                     <small> ${user.campus}</small>
-                                </div>
-                            ` : ''}
-                            ${user.id ? `
-                                <div class="profile-detail">
-                                    <strong>ID</strong>
-                                      <small>${user.id}</small>
                                 </div>
                             ` : ''}
                         </div>
