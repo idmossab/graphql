@@ -2,6 +2,7 @@
 import { get_JWT } from "./token.js";
 import { render_user_profile } from "../views/profile.js";
 import { handle_user_ratio, handle_given_taken_xps } from "../views/ratio.js";
+import { handle_user_level } from "../views/level.js";
 
 
 export function fetch_data() {
@@ -82,4 +83,5 @@ function handle_received_data(user_data) {
     }
     handle_user_ratio(ratio)
     handle_given_taken_xps(ratio)
+    handle_user_level(user_data.transactions[0].amount)
 }

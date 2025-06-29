@@ -15,7 +15,18 @@ export async function render_home_page() {
 
     container.innerHTML = `
         <main class="main-content">
-        <div class="audit-ratio">
+         <div class="profile_details">
+             <h4>Current level</h4>
+            <div id="user_level">
+         
+            
+            </div>
+                 <div id="user_description">
+         
+            
+            </div>
+        </div>
+        <div class="profile_details">
             <h4>Audit ratio</h4>
             <div id="svg_ratio">
          
