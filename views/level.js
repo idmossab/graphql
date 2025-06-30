@@ -48,9 +48,18 @@ export function handle_user_level(level) {
     text.setAttribute("font-size", "16");
     text.setAttribute("fill", "#333");
     text.textContent = `${level}`;
-
     svg.appendChild(text);
 
+    // Descriptive text
+    const descripive_text = document.createElement("p");
+    descripive_text.textContent =
+        level <= 10 ? "Beginner" :
+        level <= 20 ? "Novice" :
+        level <= 30 ? "Intermediate" :
+        level <= 40 ? "Advanced" :
+        level <= 50 ? "Expert" :
+                      "Master";
+
     // Append to container
-    user_level.appendChild(svg);
+    user_level.append(svg, descripive_text);
 }
