@@ -14,6 +14,11 @@ export async function render_home_page() {
     container.innerHTML = ""
 
     container.innerHTML = `
+            <aside class="sidebar">
+      <h2>User Profile</h2>
+      <div id="profile_container"></div>
+    </aside>
+
         <main class="main-content">
          <div class="profile_details">
              <h4>Current level</h4>
