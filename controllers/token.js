@@ -1,3 +1,5 @@
+import { navigateTo } from "./router.js";
+
 export function get_JWT() {
     let token = localStorage.getItem("access_token");
 
@@ -8,7 +10,7 @@ export function get_JWT() {
 
     if (!token || token.split('.').length !== 3) {
         console.error("Invalid or missing JWT:", token);
-        alert("Your session token is invalid. Please log in again.");
+        navigateTo("/login")
         return;
     }
     return token

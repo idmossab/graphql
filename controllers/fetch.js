@@ -4,17 +4,18 @@ import { render_user_profile } from "../views/profile.js";
 import { handle_user_ratio, handle_given_taken_xps } from "../views/ratio.js";
 import { handle_user_level } from "../views/level.js";
 import { navigateTo } from "./router.js";
+import { handle_failed_passed_projects } from "../views/fail_pass.js";
 
 
 export function fetch_data() {
-    let token = get_JWT();
+    let token = get_JWT()
     if (token == null) {
         alert("Error retrieving JWT");
         return;
     }
 
-    const query = `     
-    query {
+    const query = `   
+     query {
       user {
         login
         firstName
@@ -36,18 +37,15 @@ export function fetch_data() {
         ) {
           amount
         }
-            progresses(where:{object:{type:{_eq: "project"}}}){
-        object{
-      name
-      type
-    }
-    isDone
-    createdAt
-  }
-        xps(where:{originEventId:{_eq: 41}}){
+  
+        
+  xps(where:{originEventId:{_eq: 41}}){
       path
       amount
+    event{
+      createdAt
     }
+      }
       }
         
     }`;
@@ -77,8 +75,7 @@ export function fetch_data() {
     })
     .catch(error => {
         console.error("Fetch error:", error);
-        alert("Failed to fetch data: " + error.message);
-        handle_error(); // Optional: you can call this to trigger any fallback logic
+        handle_error()
     });
 }
 
@@ -103,11 +100,13 @@ function handle_received_data(user_data) {
     handle_user_ratio(ratio)
     handle_given_taken_xps(ratio)
     handle_user_level(user_data.transactions[0].amount)
+    handle_failed_passed_projects(user_data.xps)
+
 }
 
 function handle_error(error) {
     console.error("Error occurred:", error);
-    localStorage.clear();
+    // localStorage.clear();
     if (typeof navigateTo === 'function') {
         navigateTo('/');
     } else {

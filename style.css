@@ -152,14 +152,6 @@
        padding-top: 5px;
    }
 
-   .content-body {
-       background: white;
-       padding: 25px;
-       border-radius: 12px;
-       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-       min-height: 400px;
-   }
-
    #definition {
        width: fit-content;
        display: flex;

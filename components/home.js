@@ -39,10 +39,9 @@ export async function render_home_page() {
             </div>
         </div>
         
-        <div class="content-body">
-            <h2>Main Content Area</h2>
-            <p>This is where your main application content would go. The user profile is displayed in the sidebar on the left.</p>
-            <p>The profile will automatically load when the page opens, and you can refresh it using the button in the sidebar.</p>
+        <div class="profile_details">
+            <h4>Passed & failed progress</h4>
+          
         </div>
     </main>
     `
