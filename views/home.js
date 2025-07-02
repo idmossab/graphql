@@ -1,10 +1,9 @@
 import { app_state } from "../utils/state.js";
 import { fetchUserData } from "../controllers/fetchUserData.js";
 import { navigateTo } from "../router.js";
+import { render_header } from "../components/header.js";
 
 export async function render_home_page() {
-            console.log("ddddd")
-
     if (!app_state.is_logged) {
         navigateTo("/login")
     }
@@ -52,5 +51,6 @@ export async function render_home_page() {
         </div>
     </main>
     `
-    fetchUserData()
+    render_header(); 
+    fetchUserData();
 }
