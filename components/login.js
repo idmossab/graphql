@@ -1,4 +1,4 @@
-import { handle_login } from "./auth.js";
+import { handle_login } from "../auth.js";
 
 export function render_login_form() {
     let container = document.getElementById("main_container");
@@ -9,6 +9,5 @@ export function render_login_form() {
             <input type="submit" value="Submit">
         </form>
     `;
-
     handle_login();
 }

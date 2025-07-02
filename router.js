@@ -1,4 +1,4 @@
-import { render_login_form } from "./login.js";
+import { render_login_form } from "./components/login.js";
 import { render_home_page } from "./home.js";
 
 
