@@ -1,4 +1,4 @@
-import { handle_login } from "../views/authentification.js";
+import { handle_login } from "../views/auth.js";
 
 export function render_login_form() {
     let container = document.getElementById("main_container");
