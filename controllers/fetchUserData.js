@@ -1,8 +1,10 @@
 import { get_JWT } from "../utils/token.js";
-import { navigateTo } from "./router.js";
+import { navigateTo } from "../router.js";
 import { processUserData } from "./processUserData.js";
 
 export function fetchUserData() {
+        console.log("📦 fetchUserData running...");
+
     const token = get_JWT();
     if (!token) {
         alert("Missing JWT");

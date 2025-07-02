@@ -1,5 +1,5 @@
 import { clear_app_state } from "./state.js";
-import { navigateTo } from "../controllers/router.js";
+import { navigateTo } from "../router.js";
 
 export function get_JWT() {
     let token = localStorage.getItem("access_token");
