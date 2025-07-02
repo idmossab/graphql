@@ -2,6 +2,7 @@ import { app_state } from "../utils/state.js";
 import { fetchUserData } from "../controllers/fetchUserData.js";
 import { navigateTo } from "../router.js";
 import { render_header } from "../components/header.js";
+import { render_profile_sidebar } from "../components/profile.js";
 
 export async function render_home_page() {
     if (!app_state.is_logged) {
@@ -15,11 +16,7 @@ export async function render_home_page() {
     container.innerHTML = ""
 
     container.innerHTML = `
-            <aside class="sidebar">
-      <h2>User Profile</h2>
-      <div id="profile_container"></div>
-    </aside>
-
+        ${render_profile_sidebar()}
         <main class="main-content">
          <div class="profile_details">
              <h4>Current level</h4>
