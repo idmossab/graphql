@@ -1,6 +1,6 @@
 import { app_state } from "../utils/state.js";
-import { fetchUserData } from "./controllers/fetchUserData.js";
-import { navigateTo } from "./router.js";
+import { fetchUserData } from "../controllers/fetchUserData.js";
+import { navigateTo } from "../router.js";
 
 export async function render_home_page() {
             console.log("ddddd")
