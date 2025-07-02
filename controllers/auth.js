@@ -1,15 +1,16 @@
-// import { app_state } from "./app_state.js";
-// import { navigateTo } from "./router.js";
-import { app_state } from "./app_state.js";
-import { navigateTo } from "./router.js";
+import { navigateTo } from "../router.js";
+import { set_app_state } from "../utils/state.js";
+import { save_JWT } from "../utils/token.js";
 
-// Set up login form handler
+// ⬅️ إعداد event handler
 export function handle_login() {
-    if (app_state.is_logged) {
-        navigateTo("/")
+    if (localStorage.getItem("is_logged") === "true") {
+        navigateTo("/");
+        return;
     }
+
     const login_form = document.getElementById("login_form");
-    if (!login_form) return; // Safety check
+    if (!login_form) return;
 
     login_form.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -17,10 +18,8 @@ export function handle_login() {
     });
 }
 
-
+// ⬅️ تنفيذ عملية تسجيل الدخول
 export function login_user() {
-    console.log("Login submitted...");
-
     const identifier = document.getElementById("identifier").value.trim();
     const password = document.getElementById("password").value;
 
@@ -38,39 +37,29 @@ export function login_user() {
         }
     })
         .then(response => {
-            if (!response.ok) {
-                throw new Error("Invalid credentials");
-            }
-            return response.text(); // Only if server returns plain token
+            if (!response.ok) throw new Error("Invalid credentials");
+            return response.text();
         })
         .then(token => {
-            console.log("Received token:", token);
+            if (!isValidJWT(token)) throw new Error("Invalid JWT");
 
-            if (!isValidJWT(token)) {
-                throw new Error("Received token is not a valid JWT");
-            }
-
-            app_state.access_token = token;
-            app_state.is_logged = true;
-
-            localStorage.setItem("is_logged", "true");
-            localStorage.setItem("access_token", token);
-
-            navigateTo("/"); // Your routing logic
+            save_JWT(token);
+            set_app_state(token); // ⬅️ تحديث الحالة
+            navigateTo("/");
         })
         .catch(err => {
-            console.error("Login error:", err);
+            console.error("Login failed:", err);
             alert("Login failed: " + err.message);
         });
 }
 
+// ⬅️ تحقق من صلاحية JWT
 function isValidJWT(token) {
     return token && token.split(".").length === 3;
 }
 
+// ⬅️ تسجيل الخروج
 export function logout_user() {
-    app_state.access_token = null;
-    app_state.is_logged = false;
     localStorage.clear();
     navigateTo("/login");
 }
