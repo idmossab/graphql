@@ -1,6 +1,6 @@
-import { app_state } from "../controllers/app_state.js";
-import { fetch_data } from "../controllers/fetch.js";
-import { navigateTo } from "../controllers/router.js";
+import { app_state } from "./app_state.js";
+import { fetch_data } from "./fetch.js";
+import { navigateTo } from "./router.js";
 
 export async function render_home_page() {
     if (!app_state.is_logged) {

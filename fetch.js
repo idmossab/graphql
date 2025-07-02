@@ -1,10 +1,10 @@
 
 import { get_JWT } from "./token.js";
-import { render_user_profile } from "../views/profile.js";
-import { handle_user_ratio, handle_given_taken_xps } from "../views/ratio.js";
-import { handle_user_level } from "../views/level.js";
+import { render_user_profile } from "./profile.js";
+import { handle_user_ratio, handle_given_taken_xps } from "./ratio.js";
+import { handle_user_level } from "./level.js";
 import { navigateTo } from "./router.js";
-import { handle_failed_passed_projects } from "../views/fail_pass.js";
+import { handle_failed_passed_projects } from "./fail_pass.js";
 
 
 export function fetch_data() {

@@ -1,7 +1,7 @@
 // import { app_state } from "./app_state.js";
 // import { navigateTo } from "./router.js";
-import { app_state } from "../controllers/app_state.js";
-import { navigateTo } from "../controllers/router.js";
+import { app_state } from "./app_state.js";
+import { navigateTo } from "./router.js";
 
 // Set up login form handler
 export function handle_login() {

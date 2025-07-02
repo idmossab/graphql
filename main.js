@@ -1,5 +1,5 @@
-import { app_state } from "../controllers/app_state.js"
-import { navigateTo, router } from "../controllers/router.js"
+import { app_state } from "./app_state.js"
+import { navigateTo } from "./router.js"
 
 
 document.addEventListener("DOMContentLoaded", () => {
