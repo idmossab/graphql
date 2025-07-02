@@ -1,4 +1,4 @@
-import { app_state } from "./app_state.js";
+import { app_state } from "../utils/state.js";
 import { fetchUserData } from "./controllers/fetchUserData.js";
 import { navigateTo } from "./router.js";
 
