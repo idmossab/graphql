@@ -5,17 +5,17 @@ import { render_header } from "../components/header.js";
 import { render_profile_sidebar } from "../components/profile.js";
 
 export async function render_home_page() {
-    if (!app_state.is_logged) {
-        navigateTo("/login")
-    }
+  if (!app_state.is_logged) {
+    navigateTo("/login");
+  }
 
-    console.log("the tocken is: ", app_state.access_token);
-    console.log("the tocken is: ", app_state.is_logged);
+  console.log("the tocken is: ", app_state.access_token);
+  console.log("the tocken is: ", app_state.is_logged);
 
-    let container = document.getElementById("main_container")
-    container.innerHTML = ""
+  let container = document.getElementById("main_container");
+  container.innerHTML = "";
 
-    container.innerHTML = `
+  container.innerHTML = `
         ${render_profile_sidebar()}
         <main class="main-content">
      <div class="profile_section_wrapper">
@@ -34,13 +34,13 @@ export async function render_home_page() {
             <div id="definition"></div>
         </div>
     </div>
-</div>
+    </div>
         <div class="profile_details">
             <h4>Passed & failed progress</h4>
           
         </div>
     </main>
-    `
-    render_header();
-    fetchUserData();
+    `;
+  render_header();
+  fetchUserData();
 }
