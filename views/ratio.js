@@ -1,4 +1,6 @@
 export function handle_user_ratio(ratio) {
+  console.log("ratio : ",ratio);
+  
   let audit_ratio = Math.round(ratio.auditRatio * 100) / 100;
 
   let ratio_container = document.getElementById("svg_ratio");

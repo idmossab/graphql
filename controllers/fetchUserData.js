@@ -12,7 +12,7 @@ export function fetchUserData() {
   }
 
   const query = `
-    query {
+     query {
       user {
         login
         firstName
@@ -29,18 +29,19 @@ export function fetchUserData() {
               { eventId: { _eq: 41 } }
             ]
           }
-          order_by: { amount: desc }
+          order_by:{amount: desc}
           limit: 1
         ) {
           amount
         }
-        xps(where: { originEventId: { _eq: 41 } }) {
-          path
-          amount
-          event {
-            createdAt
-          }
-        }
+  
+        
+  xps(where:{originEventId:{_eq: 41}}
+  order_by: {amount: asc}
+  ){
+      path
+      amount
+      }
       }
     }`;
 

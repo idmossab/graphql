@@ -25,6 +25,6 @@ export function processUserData(user) {
   }
 
   if (user.xps?.length > 0) {
-    handle_failed_passed_projects(user.xps);
+    handle_failed_passed_projects(user);
   }
 }
