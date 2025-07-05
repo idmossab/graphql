@@ -37,7 +37,9 @@ export async function render_home_page() {
     </div>
         <div class="profile_details">
             <h4>Passed & failed progress</h4>
-          
+          <div id="failed_passed_container">
+            
+        </div>
         </div>
     </main>
     `;
