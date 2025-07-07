@@ -24,8 +24,11 @@ export function login_user() {
   const identifier = document.getElementById("identifier").value.trim();
   const password = document.getElementById("password").value;
 
+  // Clear any existing error
+  clearError();
+
   if (!identifier || !password) {
-    alert("Please enter both identifier and password");
+    showError("Please enter both identifier and password");
     return;
   }
 
@@ -39,18 +42,20 @@ export function login_user() {
     },
   })
     .then((response) => {
-      if (!response.ok) throw new Error("Invalid credentials");
+      if (!response.ok) {
+        throw new Error("Invalid email or password");
+      }
       return response.text(); // JWT كيرجع كسلسلة
     })
     .then((token) => {
-      if (!isValidJWT(token)) throw new Error("Invalid JWT");
-
+      if (!isValidJWT(token)) throw new Error("Invalid response");
+      
       set_app_state(token); // تخزين JWT فـ localStorage و app_state
       navigateTo("/"); // انتقال للصفحة الرئيسية
     })
     .catch((err) => {
       console.error("Login failed:", err);
-      alert("Login failed: " + err.message);
+      showError(err.message);
     });
 }
 
@@ -58,7 +63,25 @@ function isValidJWT(token) {
   return token && token.split(".").length === 3;
 }
 
+function showError(message) {
+  clearError();
+  
+  const error = document.createElement('div');
+  error.className = 'error-msg';
+  error.textContent = message;
+  
+  const form = document.getElementById('login_form');
+  form.insertBefore(error, form.firstChild);
+  
+  setTimeout(clearError, 4000);
+}
+
+function clearError() {
+  const error = document.querySelector('.error-msg');
+  if (error) error.remove();
+}
+
 export function logout_user() {
-  localStorage.clear(); 
-  navigateTo("/login");     
+  localStorage.clear();
+  navigateTo("/login");
 }
