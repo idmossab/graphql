@@ -7,6 +7,7 @@ import { render_profile_sidebar } from "../components/profile.js";
 export async function render_home_page() {
   if (!app_state.is_logged) {
     navigateTo("/login");
+    return;
   }
 
   console.log("the tocken is: ", app_state.access_token);
