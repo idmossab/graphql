@@ -1,13 +1,12 @@
-import { app_state } from "./utils/state.js";
+import { is_logged_in } from "./utils/state.js";
 import { navigateTo } from "./router.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (app_state.is_logged) {
-    navigateTo("/"); // Logged in → Home page
+  if (is_logged_in()) {
+    navigateTo("/"); // JWT valid → Home page
   } else {
-    navigateTo("/login"); // Not logged in → Login page
+    navigateTo("/login"); // No or expired JWT → Login page
   }
 });
-
 
 //python3 -m http.server 8000
