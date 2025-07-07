@@ -8,3 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
     navigateTo("/login"); // Not logged in → Login page
   }
 });
+
+
+//python3 -m http.server 8000
