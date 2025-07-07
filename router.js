@@ -1,5 +1,6 @@
 import { render_login_form } from "./components/login.js";
 import { render_home_page } from "./views/home.js";
+import { render_error_page } from "./error.js"; // Add this import
 
 const routes = {
   "/": render_home_page,
@@ -18,7 +19,7 @@ export function router() {
     route();
   } else {
     const status = 404;
-    const message = getErrorMessage(status);
+    const message = "page not found";
     render_error_page(status, message);
   }
 }
