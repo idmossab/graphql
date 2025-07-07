@@ -4,10 +4,20 @@ export function handle_failed_passed_projects(data) {
     amount: Math.round((item.amount / 1000) * 10) / 10
   }));
 
-
-
-
   let container = document.getElementById("failed_passed_container")
+  // Clear previous content
+  container.innerHTML = "";
+
+  // Check if data exists and has xps array
+  if (!data || !data.xps || !Array.isArray(data.xps) || data.xps.length === 0) {
+    container.innerHTML = `
+        <div class="no-data-message">
+          <p>No project data available</p>
+          <small>Complete some projects to see your progress chart</small>
+        </div>
+      `;
+    return;
+  }
   console.log(container);
   // Create the SVG element
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -44,11 +54,11 @@ export function handle_failed_passed_projects(data) {
   data_xps.forEach((element, index) => {
     let bar_hight = (element.amount / max_amount) * (height - (padding * 2))
     console.log(`The elment: ${element.name} bar height is: ${bar_hight}`);
-    let x = gap + (index * (bar_width + gap)) 
+    let x = gap + (index * (bar_width + gap))
     let y = height - padding - bar_hight
     console.log(`The x is: ${x} and the y is: ${y}`)
 
-// Create the chart that will visually represent the xp of a specific project
+    // Create the chart that will visually represent the xp of a specific project
     const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
     rect.setAttribute("x", x);
     rect.setAttribute("y", y);
