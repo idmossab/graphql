@@ -1,10 +1,21 @@
 export function handle_user_ratio(ratio) {
-  console.log("ratio : ",ratio);
-  
+  console.log("ratio : ", ratio);
+
   let audit_ratio = Math.round(ratio.auditRatio * 100) / 100;
 
   let ratio_container = document.getElementById("svg_ratio");
   ratio_container.innerHTML = ""; // Clear previous SVG if any
+
+  // Check if ratio data is missing or invalid
+  if (!ratio || ratio.auditRatio === undefined || ratio.auditRatio === null) {
+    ratio_container.innerHTML = `
+      <div class="no-data-message">
+        <p>No audit ratio data available</p>
+        <small>Complete some audits to see your ratio</small>
+      </div>
+    `;
+    return;
+  }
 
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttribute("width", "100");
@@ -49,8 +60,8 @@ export function handle_user_ratio(ratio) {
     audit_ratio < 0.5
       ? "Do more audits!"
       : audit_ratio < 0.75
-      ? "you can do better!"
-      : "you are perfect";
+        ? "you can do better!"
+        : "you are perfect";
   text.style.color = color;
 
   svg.appendChild(progressCircle);
@@ -95,9 +106,8 @@ export function handle_given_taken_xps(ratio) {
   given_quad.setAttribute("id", "given_quad");
   let given_text = document.createElement("small");
   given_text.setAttribute("id", "given_text");
-  given_text.textContent = `taken ${
-    Math.round((ratio.totalDown / 1000000) * 100) / 100
-  } mb`;
+  given_text.textContent = `taken ${Math.round((ratio.totalDown / 1000000) * 100) / 100
+    } mb`;
 
   given.append(given_quad, given_text);
 
@@ -107,9 +117,8 @@ export function handle_given_taken_xps(ratio) {
   taken_quad.setAttribute("id", "taken_quad");
   let taken_text = document.createElement("small");
   taken_text.setAttribute("id", "taken_text");
-  taken_text.textContent = `Received ${
-    Math.round((ratio.totalUp / 1000000) * 100) / 100
-  } mb`;
+  taken_text.textContent = `Received ${Math.round((ratio.totalUp / 1000000) * 100) / 100
+    } mb`;
 
   taken.append(taken_quad, taken_text);
 
