@@ -1,3 +1,5 @@
+import { isValidJWT } from "./token.js";
+
 export const app_state = {
   access_token: localStorage.getItem("access_token") || null
 };
@@ -15,4 +17,9 @@ export function clear_app_state() {
 export function is_logged_in() {
   const token = localStorage.getItem("access_token");
   return token && token.split(".").length === 3;
+}
+
+export function is_token_valid() {
+  const token = localStorage.getItem("access_token");
+  return token && isValidJWT(token);
 }

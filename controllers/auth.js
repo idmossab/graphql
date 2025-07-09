@@ -1,6 +1,6 @@
 import { navigateTo } from "../router.js";
-import { set_app_state } from "../utils/state.js";
-import { is_logged_in } from "../utils/state.js";
+import { set_app_state, is_logged_in } from "../utils/state.js";
+import { isValidJWT } from "../utils/token.js";
 
 export function handle_login() {
   if (is_logged_in()) {
@@ -41,13 +41,15 @@ export function login_user() {
       if (!response.ok) {
         throw new Error("Invalid email or password");
       }
-      return response.text(); 
+      return response.json();
     })
-    .then((token) => {
-      if (!isValidJWT(token)) throw new Error("Invalid response");
-      
-      set_app_state(token); 
-      navigateTo("/"); 
+    .then((data) => {
+      const token = typeof data === "string" ? data : data.token || data.access_token;
+
+      if (!isValidJWT(token)) throw new Error("Invalid JWT response");
+
+      set_app_state(token);
+      navigateTo("/");
     })
     .catch((err) => {
       console.error("Login failed:", err);
@@ -55,21 +57,16 @@ export function login_user() {
     });
 }
 
-function isValidJWT(token) {
-  //needed to edit
-  return token && token.split(".").length === 3;
-}
-
 function showError(message) {
   clearError();
-  
+
   const error = document.createElement('div');
   error.className = 'error-msg';
   error.textContent = message;
-  
+
   const form = document.getElementById('login_form');
   form.insertBefore(error, form.firstChild);
-  
+
   setTimeout(clearError, 4000);
 }
 
