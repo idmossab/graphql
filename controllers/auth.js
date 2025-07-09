@@ -56,6 +56,7 @@ export function login_user() {
 }
 
 function isValidJWT(token) {
+  //needed to edit
   return token && token.split(".").length === 3;
 }
 
