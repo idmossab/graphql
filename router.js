@@ -1,6 +1,5 @@
 import { render_login_form } from "./components/login.js";
 import { render_home_page } from "./views/home.js";
-import { render_error_page } from "./error.js";
 import { is_logged_in, is_token_valid } from "./utils/state.js";
 
 const routes = {
@@ -40,11 +39,7 @@ export function router() {
   const route = routes[path];
   if (route) {
     route();
-  } else {
-    const status = 404;
-    const message = "page not found";
-    render_error_page(status, message);
-  }
+  } 
 }
 
 // Handle browser back/forward buttons
