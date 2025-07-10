@@ -41,6 +41,3 @@ export function router() {
     route();
   } 
 }
-
-// Handle browser back/forward buttons
-window.addEventListener("popstate", router);
