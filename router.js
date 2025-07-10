@@ -31,11 +31,6 @@ export function router() {
     }
   }
   
-  if (path === "/login" && is_logged_in()) {
-    navigateTo("/");
-    return;
-  }
-  
   const route = routes[path];
   if (route) {
     route();
