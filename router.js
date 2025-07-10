@@ -10,13 +10,12 @@ const routes = {
 const protected_routes = ["/"];
 
 export function navigateTo(url) {
-  // Use hash-based routing instead of pushState
-  window.location.hash = url;
+  history.pushState(null, null, url);
+  router();
 }
 
 export function router() {
-  // Get path from hash instead of pathname
-  let path = window.location.hash.slice(1) || "/";
+  const path = window.location.pathname;
   
   if (protected_routes.includes(path)) {
     if (!is_logged_in()) {
@@ -27,8 +26,6 @@ export function router() {
     
     if (!is_token_valid()) {
       console.log("Access denied: Invalid or expired token");
-        alert("Session expired. Please login again.");
-
       navigateTo("/login");
       return;
     }
@@ -37,11 +34,5 @@ export function router() {
   const route = routes[path];
   if (route) {
     route();
-  }
+  } 
 }
-
-// Listen for hash changes instead of popstate
-window.addEventListener('hashchange', router);
-
-// Initial route on page load
-document.addEventListener('DOMContentLoaded', router);
