@@ -10,12 +10,13 @@ const routes = {
 const protected_routes = ["/"];
 
 export function navigateTo(url) {
-  history.pushState(null, null, url);
-  router();
+  // Use hash-based routing instead of pushState
+  window.location.hash = url;
 }
 
 export function router() {
-  const path = window.location.pathname;
+  // Get path from hash instead of pathname
+  let path = window.location.hash.slice(1) || "/";
   
   if (protected_routes.includes(path)) {
     if (!is_logged_in()) {
@@ -34,5 +35,11 @@ export function router() {
   const route = routes[path];
   if (route) {
     route();
-  } 
+  }
 }
+
+// Listen for hash changes instead of popstate
+window.addEventListener('hashchange', router);
+
+// Initial route on page load
+document.addEventListener('DOMContentLoaded', router);
