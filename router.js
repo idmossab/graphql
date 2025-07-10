@@ -27,6 +27,8 @@ export function router() {
     
     if (!is_token_valid()) {
       console.log("Access denied: Invalid or expired token");
+        alert("Session expired. Please login again.");
+
       navigateTo("/login");
       return;
     }

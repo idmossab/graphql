@@ -2,8 +2,17 @@ import { get_JWT } from "../utils/token.js";
 import { navigateTo } from "../router.js";
 import { processUserData } from "./processUserData.js";
 
+function retryFetch(url, options, retries = 3, delay = 1000) {
+  return fetch(url, options).catch((err) => {
+    if (retries === 0) throw err;
+    return new Promise((resolve) =>
+      setTimeout(() => resolve(retryFetch(url, options, retries - 1, delay)), delay)
+    );
+  });
+}
+
 export function fetchUserData() {
-  console.log("📦 fetchUserData running...");
+  console.log("fetchUserData running...");
 
   const token = get_JWT();
   if (!token) {
@@ -12,7 +21,7 @@ export function fetchUserData() {
   }
 
   const query = `
-     query {
+    query {
       user {
         login
         firstName
@@ -34,37 +43,50 @@ export function fetchUserData() {
         ) {
           amount
         }
-  
-        
-  xps(where:{originEventId:{_eq: 41}}
-  order_by: {amount: asc}
-  ){
-      path
-      amount
+        xps(
+          where: { originEventId: { _eq: 41 } }
+          order_by: { amount: asc }
+        ) {
+          path
+          amount
+        }
       }
-      }
-    }`;
+    }
+  `;
 
-  fetch("https://learn.zone01oujda.ma/api/graphql-engine/v1/graphql", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({ query }),
-  })
-    .then((res) => {
-      if (!res.ok) throw new Error("Fetch failed");
-      return res.json();
+  setTimeout(() => {
+    retryFetch("https://learn.zone01oujda.ma/api/graphql-engine/v1/graphql", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ query }),
     })
-    .then((data) => {
-      const user = data?.data?.user?.[0];
-      if (!user) return navigateTo("/login");
-      processUserData(user);
-    })
-    .catch((err) => {
-      console.error(err);
-      localStorage.clear();
-      navigateTo("/login");
-    });
+      .then((res) => {
+        if (!res.ok) throw new Error("Fetch failed with status " + res.status);
+        return res.json();
+      })
+      .then((data) => {
+        const user = data?.data?.user?.[0];
+        if (!user) {
+          console.warn("No user data found");
+          return navigateTo("/login");
+        }
+        console.log("User data fetched");
+        processUserData(user);
+      })
+      .catch((err) => {
+        console.error("fetchUserData error:", err.message);
+
+        if (err.message.includes("Failed to fetch") || err.message.includes("NetworkError")) {
+          alert("Server unreachable. Try again later.");
+          return;
+        }
+
+        // Error not related to network → clear token and redirect
+        localStorage.clear();
+        navigateTo("/login");
+      });
+  }, 500); // Delay to avoid spam
 }
