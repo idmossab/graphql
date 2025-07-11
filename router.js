@@ -34,5 +34,5 @@ export function router() {
   const route = routes[path];
   if (route) {
     route();
-  } 
+  }
 }

@@ -5,13 +5,6 @@ import { render_header } from "../components/header.js";
 import { render_profile_sidebar } from "../components/profile.js";
 
 export async function render_home_page() {
-  if (!is_logged_in()) {
-    navigateTo("/login");
-    return;
-  }
-
-  console.log("The token is: ", app_state.access_token);
-
   let container = document.getElementById("main_container");
   container.innerHTML = "";
 
