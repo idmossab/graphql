@@ -1,6 +1,4 @@
-import { is_logged_in, app_state } from "../utils/state.js";
 import { fetchUserData } from "../controllers/fetchUserData.js";
-import { navigateTo } from "../router.js";
 import { render_header } from "../components/header.js";
 import { render_profile_sidebar } from "../components/profile.js";
 
