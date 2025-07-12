@@ -84,6 +84,8 @@ export function fetchUserData() {
         return res.json();
       })
       .then((data) => {
+        console.log("fetchUserData response:", data);
+        // - ?. ➜ Optional Chaining for return undefined not error
         const user = data?.data?.user?.[0];
         const totalXp = data?.data?.totalXp?.aggregate?.sum?.amount || 0;
 
@@ -98,6 +100,7 @@ export function fetchUserData() {
         console.error("fetchUserData error:", err.message);
 
         if (
+          //problem in server or network
           err.message.includes("Failed to fetch") ||
           err.message.includes("NetworkError")
         ) {

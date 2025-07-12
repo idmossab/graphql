@@ -3,7 +3,7 @@ import { handle_user_ratio, handle_given_taken_xps } from "../views/ratio.js";
 import { handle_user_level } from "../views/level.js";
 import { handle_failed_passed_projects } from "../views/fail_pass.js";
 
-export function processUserData(user,totalXp) {
+export function processUserData(user, totalXp) {
   render_user_profile({
     firstName: user.firstName,
     lastName: user.lastName,
@@ -17,10 +17,13 @@ export function processUserData(user,totalXp) {
     totalUp: user.totalUp,
     totalDown: user.totalDown,
   };
+  
+  //check if ratio data is available
   const hasRatioData =
     user.auditRatio !== null &&
     user.totalUp !== null &&
     user.totalDown !== null;
+
   if (hasRatioData) {
     handle_user_ratio(ratio);
     handle_given_taken_xps(ratio);
@@ -34,6 +37,7 @@ export function processUserData(user,totalXp) {
         </div>
       `;
     }
+
     const given_taken = document.getElementById("given_taken");
     if (given_taken) {
       given_taken.innerHTML = "";
