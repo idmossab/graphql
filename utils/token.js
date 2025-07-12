@@ -1,5 +1,5 @@
 import { clear_app_state } from "./state.js";
-import { render_login_form } from "../components/login.js"; // بدل navigateTo
+import { render_login_form } from "../components/login.js"; 
 
 export function get_JWT() {
   let token = localStorage.getItem("access_token");
@@ -13,7 +13,7 @@ export function get_JWT() {
   if (!isValid) {
     console.warn("Invalid or missing JWT:", token);
     clear_app_state();
-    setTimeout(() => render_login_form(), 0); // بدل navigateTo("/login")
+    setTimeout(() => render_login_form(), 0); 
     return null;
   }
 
