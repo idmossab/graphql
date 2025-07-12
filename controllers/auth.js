@@ -17,15 +17,20 @@ export function handle_login() {
   });
 }
 
+let isLoggingIn = false;  
+
 export function login_user() {
+  if (isLoggingIn) return;
+  isLoggingIn = true;
+
   const identifier = document.getElementById("identifier").value.trim();
   const password = document.getElementById("password").value;
 
-  // Clear any existing error
   clearError();
 
   if (!identifier || !password) {
     showError("Please enter both identifier and password");
+    isLoggingIn = false;
     return;
   }
 
@@ -38,14 +43,11 @@ export function login_user() {
     },
   })
     .then((response) => {
-      if (!response.ok) {
-        throw new Error("Invalid email or password");
-      }
+      if (!response.ok) throw new Error("Invalid email or password");
       return response.json();
     })
     .then((data) => {
       const token = typeof data === "string" ? data : data.token || data.access_token;
-
       if (!isValidJWT(token)) throw new Error("Invalid JWT response");
 
       set_app_state(token);
@@ -54,8 +56,12 @@ export function login_user() {
     .catch((err) => {
       console.error("Login failed:", err);
       showError(err.message);
+    })
+    .finally(() => {
+      isLoggingIn = false;
     });
 }
+
 
 function showError(message) {
   clearError();
