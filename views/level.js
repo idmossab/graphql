@@ -1,25 +1,18 @@
-export function handle_user_level(level) {
+export function handle_user_level(level, totalXp = 0) {
   const user_level = document.getElementById("user_level");
-
-  // Clear previous content
   user_level.innerHTML = "";
-  
+
   let ratio = level / 60;
   let radius = 45;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference * (1 - ratio);
 
-  // Create the SVG element
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttribute("width", "100");
   svg.setAttribute("height", "100");
   svg.setAttribute("viewBox", "0 0 100 100");
 
-  // Background Circle (gray)
-  const bgCircle = document.createElementNS(
-    "http://www.w3.org/2000/svg",
-    "circle"
-  );
+  const bgCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
   bgCircle.setAttribute("cx", "50");
   bgCircle.setAttribute("cy", "50");
   bgCircle.setAttribute("r", radius);
@@ -28,11 +21,7 @@ export function handle_user_level(level) {
   bgCircle.setAttribute("stroke-width", "10");
   svg.appendChild(bgCircle);
 
-  // Progress Circle
-  const progressCircle = document.createElementNS(
-    "http://www.w3.org/2000/svg",
-    "circle"
-  );
+  const progressCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
   progressCircle.setAttribute("cx", "50");
   progressCircle.setAttribute("cy", "50");
   progressCircle.setAttribute("r", radius);
@@ -43,10 +32,8 @@ export function handle_user_level(level) {
   progressCircle.style.strokeDasharray = circumference;
   progressCircle.style.strokeDashoffset = offset;
   progressCircle.style.transition = "stroke-dashoffset 0.5s ease";
-
   svg.appendChild(progressCircle);
 
-  // Add text in the middle
   const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
   text.setAttribute("x", "50");
   text.setAttribute("y", "55");
@@ -56,9 +43,8 @@ export function handle_user_level(level) {
   text.textContent = `${level}`;
   svg.appendChild(text);
 
-  // Descriptive text
-  const descripive_text = document.createElement("p");
-  descripive_text.textContent =
+  const level_description = document.createElement("p");
+  level_description.textContent =
     level <= 10
       ? "Beginner"
       : level <= 20
@@ -71,6 +57,11 @@ export function handle_user_level(level) {
               ? "Expert"
               : "Master";
 
-  // Append to container
-  user_level.append(svg, descripive_text);
+  const xpLabel = document.createElement("label");
+  xpLabel.textContent = `Total XP: ${(totalXp / 1000).toFixed(1)} kB`;
+  xpLabel.style.marginTop = "10px";
+  xpLabel.style.fontWeight = "bold";
+  xpLabel.style.color = "#444";
+
+  user_level.append(svg, level_description, xpLabel);
 }

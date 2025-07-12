@@ -20,6 +20,10 @@ body {
   color: white;
   padding: 12px 24px;
   border-bottom: 2px solid #334155;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 1;
 }
 
 .app-header h1 {
@@ -129,6 +133,7 @@ body {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-style: italic;
   font-weight: 600;
+  padding-top: 60px;
 }
 
 .profile_details {
@@ -268,11 +273,11 @@ text {
     padding: 1.5rem;
     min-height: 100px;
   }
-  
+
   .no-data-message p {
     font-size: 1rem;
   }
-  
+
   .no-data-message small {
     font-size: 0.8rem;
   }
@@ -284,11 +289,11 @@ text {
     background-color: #2d3748;
     border-color: #4a5568;
   }
-  
+
   .no-data-message p {
     color: #e2e8f0;
   }
-  
+
   .no-data-message small {
     color: #a0aec0;
   }
