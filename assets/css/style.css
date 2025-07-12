@@ -257,7 +257,11 @@ text {
   color: #adb5bd;
   margin: 0;
 }
-
+text {
+  font-family: "Segoe UI", sans-serif;
+  font-size: 12px;
+  user-select: none;
+}
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .no-data-message {
