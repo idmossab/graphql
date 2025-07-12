@@ -1,5 +1,5 @@
 import { clear_app_state } from "./state.js";
-import { navigateTo } from "../router.js";
+import { render_login_form } from "../components/login.js"; // بدل navigateTo
 
 export function get_JWT() {
   let token = localStorage.getItem("access_token");
@@ -13,7 +13,7 @@ export function get_JWT() {
   if (!isValid) {
     console.warn("Invalid or missing JWT:", token);
     clear_app_state();
-    setTimeout(() => navigateTo("/login"), 0);
+    setTimeout(() => render_login_form(), 0); // بدل navigateTo("/login")
     return null;
   }
 
@@ -52,11 +52,11 @@ setInterval(() => {
   
   if (currentToken !== lastToken) {
     lastToken = currentToken;
-    
+
     if (window.location.pathname === "/" && (!currentToken || !isValidJWT(currentToken))) {
       console.log("Token changed or invalidated, redirecting to login");
       clear_app_state();
-      navigateTo("/login");
+      render_login_form(); 
     }
   }
 }, 1000);

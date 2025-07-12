@@ -1,10 +1,11 @@
-import { navigateTo } from "../router.js";
+import { render_login_form } from "../components/login.js";
+import { render_home_page } from "../views/home.js";
 import { set_app_state, is_logged_in } from "../utils/state.js";
 import { isValidJWT } from "../utils/token.js";
 
 export function handle_login() {
   if (is_logged_in()) {
-    navigateTo("/");
+    render_home_page(); 
     return;
   }
 
@@ -17,7 +18,7 @@ export function handle_login() {
   });
 }
 
-let isLoggingIn = false;  
+let isLoggingIn = false;
 
 export function login_user() {
   if (isLoggingIn) return;
@@ -51,7 +52,7 @@ export function login_user() {
       if (!isValidJWT(token)) throw new Error("Invalid JWT response");
 
       set_app_state(token);
-      navigateTo("/");
+      render_home_page();
     })
     .catch((err) => {
       console.error("Login failed:", err);
@@ -62,26 +63,25 @@ export function login_user() {
     });
 }
 
-
 function showError(message) {
   clearError();
 
-  const error = document.createElement('div');
-  error.className = 'error-msg';
+  const error = document.createElement("div");
+  error.className = "error-msg";
   error.textContent = message;
 
-  const form = document.getElementById('login_form');
+  const form = document.getElementById("login_form");
   form.insertBefore(error, form.firstChild);
 
   setTimeout(clearError, 4000);
 }
 
 function clearError() {
-  const error = document.querySelector('.error-msg');
+  const error = document.querySelector(".error-msg");
   if (error) error.remove();
 }
 
 export function logout_user() {
   localStorage.clear();
-  navigateTo("/login");
+  render_login_form();
 }

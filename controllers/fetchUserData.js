@@ -1,5 +1,5 @@
 import { get_JWT } from "../utils/token.js";
-import { navigateTo } from "../router.js";
+import { render_login_form } from "../components/login.js";
 import { processUserData } from "./processUserData.js";
 
 function retryFetch(url, options, retries = 3, delay = 1000) {
@@ -17,7 +17,7 @@ export function fetchUserData() {
   const token = get_JWT();
   if (!token) {
     alert("Missing JWT");
-    return navigateTo("/login");
+    return render_login_form(); 
   }
 
   const query = `
@@ -71,7 +71,7 @@ export function fetchUserData() {
         const user = data?.data?.user?.[0];
         if (!user) {
           console.warn("No user data found");
-          return navigateTo("/login");
+          return render_login_form(); 
         }
         console.log("User data fetched");
         processUserData(user);
@@ -86,7 +86,7 @@ export function fetchUserData() {
 
         // Error not related to network → clear token and redirect
         localStorage.clear();
-        navigateTo("/login");
+        render_login_form(); 
       });
   }, 500); // Delay to avoid spam
 }

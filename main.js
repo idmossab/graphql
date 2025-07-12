@@ -1,10 +1,14 @@
 import { is_logged_in } from "./utils/state.js";
-import { navigateTo } from "./router.js";
+import { render_login_form } from "./components/login.js";
+import { render_home_page } from "./views/home.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+  const container = document.getElementById("main_container");
+  container.innerHTML = "";
+
   if (is_logged_in()) {
-    navigateTo("/");
+    render_home_page();
   } else {
-    navigateTo("/login");
+    render_login_form();
   }
 });
