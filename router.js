@@ -34,5 +34,8 @@ export function router() {
   const route = routes[path];
   if (route) {
     route();
+  }else {
+    console.error(`No route found for ${path}`);
+    document.getElementById("main_container").innerHTML = "<h2>404 Not Found</h2>";
   }
 }

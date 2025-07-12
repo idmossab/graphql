@@ -10,17 +10,7 @@ export function handle_failed_passed_projects(data) {
 
   let container = document.getElementById("failed_passed_container");
   container.innerHTML = "";
-
-  if (!data || !data.xps || !Array.isArray(data.xps) || data.xps.length === 0) {
-    container.innerHTML = `
-      <div class="no-data-message">
-        <p>No project data available</p>
-        <small>Complete some projects to see your progress chart</small>
-      </div>
-    `;
-    return;
-  }
-
+  
   const svgWrapper = document.createElement("div");
   svgWrapper.style.width = "100%";
   svgWrapper.style.height = "300px";

@@ -6,17 +6,6 @@ export function handle_user_ratio(ratio) {
   let ratio_container = document.getElementById("svg_ratio");
   ratio_container.innerHTML = ""; // Clear previous SVG if any
 
-  // Check if ratio data is missing or invalid
-  if (!ratio || ratio.auditRatio === undefined || ratio.auditRatio === null) {
-    ratio_container.innerHTML = `
-      <div class="no-data-message">
-        <p>No audit ratio data available</p>
-        <small>Complete some audits to see your ratio</small>
-      </div>
-    `;
-    return;
-  }
-
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttribute("width", "100");
   svg.setAttribute("height", "100");

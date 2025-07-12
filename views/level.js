@@ -3,16 +3,7 @@ export function handle_user_level(level) {
 
   // Clear previous content
   user_level.innerHTML = "";
-  // Check if level data is missing or invalid
-  if (level === undefined || level === null || level <= 0) {
-    user_level.innerHTML = `
-    <div class="no-data-message">
-      <p>No level data available</p>
-      <small>Complete some projects to see your current level</small>
-    </div>
-  `;
-    return;
-  }
+  
   let ratio = level / 60;
   let radius = 45;
   const circumference = 2 * Math.PI * radius;
