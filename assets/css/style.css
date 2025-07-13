@@ -1,5 +1,8 @@
+
 @import url("global.css");
 @import url("level.css");
+@import url("ratio.css");
+@import url("fail_pass.css");
 @import url("header.css");
 @import url("sidebar.css");
 @import url("profile.css");
