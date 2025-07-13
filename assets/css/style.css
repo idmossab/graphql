@@ -246,7 +246,10 @@ text {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-style: italic;
   font-weight: 600;
-  padding-top: 60px;
+  padding-top: 100px;
+  padding-left: 100px;
+  padding-right: 100px;
+
 }
 
 /* ===== PROFILE DETAILS SECTION ===== */
@@ -425,6 +428,9 @@ text {
 
   .main-content {
     margin-left: 0;
+    padding-top: 30px;
+    padding-left: 0px;
+    padding-right: 0px;
   }
 
   .no-data-message {
