@@ -1,0 +1,32 @@
+/* ===== LEVEL COMPONENT STYLES ===== */
+.bg {
+  stroke: #e2e8f0;
+}
+
+.progress {
+  stroke: #667eea;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+.level-value {
+  font-size: 16px;
+  font-weight: 600;
+  fill: #1e293b;
+}
+
+.level-description {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.level-xp {
+  display: block;
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}

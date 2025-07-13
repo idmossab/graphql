@@ -1,0 +1,65 @@
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .sidebar {
+      width: 100%;
+      position: relative;
+      height: auto;
+      padding: 1.5rem;
+    }
+    
+    .profile-avatar {
+      width: 80px;
+      height: 80px;
+      font-size: 1.5rem;
+    }
+    
+    .sidebar h2 {
+      font-size: 1.3rem;
+    }
+  
+    .profile_section_wrapper {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .profile_details {
+      width: 100% !important;
+      flex: none;
+    }
+  
+    .main-content {
+      margin-left: 0;
+      padding-top: 30px;
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+  
+    .no-data-message {
+      padding: 1.5rem;
+      min-height: 100px;
+    }
+  
+    .no-data-message p {
+      font-size: 1rem;
+    }
+  
+    .no-data-message small {
+      font-size: 0.8rem;
+    }
+  }
+  
+  /* ===== DARK THEME SUPPORT ===== */
+  @media (prefers-color-scheme: dark) {
+    .no-data-message {
+      background: linear-gradient(145deg, #1e293b, #334155);
+      border-color: rgba(102, 126, 234, 0.4);
+    }
+  
+    .no-data-message p {
+      color: #e2e8f0;
+    }
+  
+    .no-data-message small {
+      color: #94a3b8;
+    }
+  }
