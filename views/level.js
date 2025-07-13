@@ -8,16 +8,12 @@ export function handle_user_level(level, totalXp = 0) {
   const offset = circumference * (1 - ratio);
 
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  svg.setAttribute("width", "100");
-  svg.setAttribute("height", "100");
-  svg.setAttribute("viewBox", "0 0 100 100");
+  svg.classList.add("level-svg");
 
   const bgCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
   bgCircle.setAttribute("cx", "50");
   bgCircle.setAttribute("cy", "50");
   bgCircle.setAttribute("r", radius);
-  bgCircle.setAttribute("fill", "none");
-  bgCircle.setAttribute("stroke-width", "10");
   bgCircle.classList.add("bg");
   svg.appendChild(bgCircle);
 
@@ -25,8 +21,6 @@ export function handle_user_level(level, totalXp = 0) {
   progressCircle.setAttribute("cx", "50");
   progressCircle.setAttribute("cy", "50");
   progressCircle.setAttribute("r", radius);
-  progressCircle.setAttribute("fill", "none");
-  progressCircle.setAttribute("stroke-width", "10");
   progressCircle.setAttribute("transform", "rotate(-90 50 50)");
   progressCircle.style.strokeDasharray = circumference;
   progressCircle.style.strokeDashoffset = offset;
@@ -36,7 +30,6 @@ export function handle_user_level(level, totalXp = 0) {
   const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
   text.setAttribute("x", "50");
   text.setAttribute("y", "55");
-  text.setAttribute("text-anchor", "middle");
   text.textContent = `${level}`;
   text.classList.add("level-value");
   svg.appendChild(text);

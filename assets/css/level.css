@@ -1,18 +1,29 @@
 /* ===== LEVEL COMPONENT STYLES ===== */
+.level-svg {
+  width: 100px;
+  height: 100px;
+  viewBox: 0 0 100 100;
+}
+
 .bg {
   stroke: #e2e8f0;
+  fill: none;
+  stroke-width: 10;
 }
 
 .progress {
   stroke: #667eea;
   stroke-linecap: round;
   transition: stroke-dashoffset 0.5s ease;
+  fill: none;
+  stroke-width: 10;
 }
 
 .level-value {
   font-size: 16px;
   font-weight: 600;
   fill: #1e293b;
+  text-anchor: middle;
 }
 
 .level-description {
