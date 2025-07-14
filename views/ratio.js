@@ -1,112 +1,97 @@
+// === Helper Functions === //
+function createSvgElement(tag, attributes = {}, classNames = []) {
+  const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
+  for (const [key, value] of Object.entries(attributes)) {
+    el.setAttribute(key, value);
+  }
+  classNames.forEach(className => el.classList.add(className));
+  return el;
+}
+
+function createDivWithText(id, text, color) {
+  const div = document.createElement("div");
+  div.setAttribute("id", id);
+  div.textContent = text;
+  div.style.color = color;
+  return div;
+}
+
+// === Ratio Circle === //
 export function handle_user_ratio(ratio) {
-  console.log("ratio : ", ratio);
-
-  let audit_ratio = Math.round(ratio.auditRatio * 100) / 100;
-
-  let ratio_container = document.getElementById("svg_ratio");
-  ratio_container.innerHTML = ""; // Clear previous SVG if any
-
-  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  svg.classList.add("ratio-svg");
-
-  // Constants for the circle
+  const audit_ratio = Math.round(ratio.auditRatio * 100) / 100;
   const radius = 45;
+  const ratio_container = document.getElementById("svg_ratio");
+  ratio_container.innerHTML = "";
 
-  // Choose color based on ratio
-  const color =
-    audit_ratio < 0.5 ? "#f43f5e" : // rose
-      audit_ratio < 0.75 ? "#f59e0b" : // amber
-        "#667eea"; // elegant blue-violet
+  const color = audit_ratio < 0.5 ? "#f43f5e" : audit_ratio < 0.75 ? "#f59e0b" : "#667eea";
+  const stroke_color = audit_ratio < 0.5 ? "#fff" : audit_ratio < 0.75 ? "#764ba2" : "#fff";
 
-  const stroke_color =
-    audit_ratio < 0.5 ? "#fff" :
-      audit_ratio < 0.75 ? "#764ba2" : // violet border
-        "#fff";
+  const svg = createSvgElement("svg", {}, ["ratio-svg"]);
+  const circle = createSvgElement("circle", {
+    cx: 50,
+    cy: 50,
+    r: radius,
+    fill: color,
+    stroke: stroke_color,
+  });
+  const text = createSvgElement("text", {
+    x: 50,
+    y: 55,
+  }, ["ratio-text"]);
+  text.textContent = audit_ratio;
 
-  // Foreground progress circle
-  const progressCircle = document.createElementNS(
-    "http://www.w3.org/2000/svg",
-    "circle"
-  );
-  progressCircle.setAttribute("cx", "50");
-  progressCircle.setAttribute("cy", "50");
-  progressCircle.setAttribute("r", radius);
-  progressCircle.setAttribute("fill", color);
-  progressCircle.setAttribute("stroke", stroke_color);
-
-  // Text in the middle
-  const content = document.createElementNS(
-    "http://www.w3.org/2000/svg",
-    "text"
-  );
-  content.setAttribute("x", "50");
-  content.setAttribute("y", "55");
-  content.textContent = `${audit_ratio}`;
-  content.classList.add("ratio-text");
-
-  let text = document.createElement("div");
-  text.setAttribute("id", "ratio_message");
-  text.textContent =
+  const messageText =
     audit_ratio < 0.5
       ? "Do more audits!"
       : audit_ratio < 0.75
-        ? "you can do better!"
-        : "you are perfect";
-  text.style.color = color;
+        ? "You can do better!"
+        : "You are perfect";
 
-  svg.appendChild(progressCircle);
-  svg.appendChild(content);
-  ratio_container.appendChild(svg);
-  ratio_container.appendChild(text);
+  const messageDiv = createDivWithText("ratio_message", messageText, color);
+
+  svg.append(circle, text);
+  ratio_container.append(svg, messageDiv);
 }
 
-// Handle given and taken ratios:
-// Handle given and taken XP visualization
+// === Given & Taken Bars === //
 export function handle_given_taken_xps(ratio) {
   const container = document.getElementById("given_taken");
   const definition = document.getElementById("definition");
-
-  if (!container) return;
+  if (!container || !definition) return;
 
   const total_xp = ratio.totalUp + ratio.totalDown;
-
-  if (total_xp === 0) {
-    console.warn("Total XP is zero, cannot create bars.");
-    return;
-  }
+  if (total_xp === 0) return;
 
   const up_percentage = ratio.totalUp / total_xp;
   const down_percentage = ratio.totalDown / total_xp;
 
-  // Create the definition elements
-  let given = document.createElement("div");
-  given.classList.add("give_take");
-  let given_quad = document.createElement("div");
-  given_quad.setAttribute("id", "given_quad");
-  let given_text = document.createElement("small");
-  given_text.setAttribute("id", "given_text");
-  given_text.textContent = `taken ${Math.round((ratio.totalDown / 1000000) * 100) / 100} mb`;
+  const formatSize = size => `${Math.round((size / 1_000_000) * 100) / 100} mb`;
 
-  given.append(given_quad, given_text);
+  // Create definition section
+  const createDefinitionBlock = (id, label, text) => {
+    const div = document.createElement("div");
+    div.classList.add("give_take");
+    const quad = document.createElement("div");
+    quad.setAttribute("id", id);
+    const small = document.createElement("small");
+    small.setAttribute("id", id + "_text");
+    small.textContent = `${label} ${text}`;
+    div.append(quad, small);
+    return div;
+  };
 
-  let taken = document.createElement("div");
-  taken.classList.add("give_take");
-  let taken_quad = document.createElement("div");
-  taken_quad.setAttribute("id", "taken_quad");
-  let taken_text = document.createElement("small");
-  taken_text.setAttribute("id", "taken_text");
-  taken_text.textContent = `Received ${Math.round((ratio.totalUp / 1000000) * 100) / 100} mb`;
+  definition.innerHTML = "";
+  definition.append(
+    createDefinitionBlock("given_quad", "Taken", formatSize(ratio.totalDown)),
+    createDefinitionBlock("taken_quad", "Received", formatSize(ratio.totalUp))
+  );
 
-  taken.append(taken_quad, taken_text);
-
-  definition.append(given, taken);
-
-  // Function to create/update the SVG bars
-  function createBars() {
+  // Function to create the SVG bars
+  const createBars = () => {
     const svgNS = "http://www.w3.org/2000/svg";
     const fallbackWidth = 300;
     const totalWidth = container.clientWidth || fallbackWidth;
-    
+
     const rectHeight = 10;
     const gap = 5;
     const svgHeight = rectHeight * 2 + gap;
@@ -114,48 +99,31 @@ export function handle_given_taken_xps(ratio) {
     const receivedWidth = up_percentage * totalWidth;
     const givenWidth = down_percentage * totalWidth;
 
-    // Remove existing SVG if any
     const existingSvg = container.querySelector('.bars-svg');
-    if (existingSvg) {
-      existingSvg.remove();
-    }
+    if (existingSvg) existingSvg.remove();
 
-    const svg = document.createElementNS(svgNS, "svg");
-    svg.classList.add("bars-svg");
-    svg.style.width = totalWidth + "px";
-    svg.style.height = svgHeight + "px";
+    const svg = createSvgElement("svg", {
+      width: totalWidth,
+      height: svgHeight
+    }, ["bars-svg"]);
 
-    const receivedRect = document.createElementNS(svgNS, "rect");
-    receivedRect.setAttribute("x", 0);
-    receivedRect.setAttribute("y", 0);
-    receivedRect.setAttribute("width", receivedWidth);
-    receivedRect.setAttribute("height", rectHeight);
-    receivedRect.classList.add("received-bar");
+    const receivedRect = createSvgElement("rect", {
+      x: 0, y: 0, width: receivedWidth, height: rectHeight
+    }, ["received-bar"]);
 
-    const givenRect = document.createElementNS(svgNS, "rect");
-    givenRect.setAttribute("x", 0);
-    givenRect.setAttribute("y", rectHeight + gap);
-    givenRect.setAttribute("width", givenWidth);
-    givenRect.setAttribute("height", rectHeight);
-    givenRect.classList.add("given-bar");
+    const givenRect = createSvgElement("rect", {
+      x: 0, y: rectHeight + gap, width: givenWidth, height: rectHeight
+    }, ["given-bar"]);
 
-    svg.appendChild(receivedRect);
-    svg.appendChild(givenRect);
+    svg.append(receivedRect, givenRect);
     container.appendChild(svg);
-  }
+  };
 
   // Create initial bars
   createBars();
 
-  // Add resize event listener to update bars on window resize
-  const resizeHandler = () => {
-    createBars();
-  };
-
-  // Remove any existing resize listener for this function
-  window.removeEventListener('resize', window.ratioResizeHandler);
-  
-  // Add new resize listener
-  window.ratioResizeHandler = resizeHandler;
-  window.addEventListener('resize', resizeHandler);
+  // Handle window resize
+  window.removeEventListener("resize", window.ratioResizeHandler);
+  window.ratioResizeHandler = () => createBars();
+  window.addEventListener("resize", window.ratioResizeHandler);
 }
