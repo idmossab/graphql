@@ -12,11 +12,7 @@ export function handle_failed_passed_projects(data) {
   svgWrapper.classList.add("svg-wrapper");
   container.appendChild(svgWrapper);
 
-  const svg = createSvgElement("svg", {
-    id: "xps_svg",
-    viewBox: "0 0 1000 300",
-    preserveAspectRatio: "xMidYMid meet"
-  });
+  const svg = createSvgElement("svg", { id: "xps_svg", viewBox: "0 0 1000 300", preserveAspectRatio: "xMidYMid meet" });
   svgWrapper.appendChild(svg);
 
   const width = 1000;
@@ -44,28 +40,18 @@ export function handle_failed_passed_projects(data) {
     const y = height - padding - barHeight;
 
     // === Bar Rectangle ===
-    const rect = createSvgElement("rect", {
-      x, y,
-      width: barWidth,
-      height: barHeight
-    }, ["xp-bar"]);
+    const rect = createSvgElement("rect", { x, y, width: barWidth, height: barHeight }, ["xp-bar"]);
 
     const tooltip = createSvgElement("title");
     tooltip.textContent = item.name;
     rect.appendChild(tooltip);
 
     // === Score Text ===
-    const scoreText = createSvgElement("text", {
-      x: x + barWidth / 2,
-      y: y - 5
-    }, ["score-text"]);
+    const scoreText = createSvgElement("text", { x: x + barWidth / 2, y: y - 5 }, ["score-text"]);
     scoreText.textContent = item.amount;
 
     // === Label Text ===
-    const labelText = createSvgElement("text", {
-      x: x + barWidth / 2,
-      y: height - padding + 12
-    }, ["label-text"]);
+    const labelText = createSvgElement("text", { x: x + barWidth / 2, y: height - padding + 12 }, ["label-text"]);
     labelText.textContent = item.name.length > 3 ? item.name.slice(0, 3) + "…" : item.name;
 
     svg.append(rect, scoreText, labelText);

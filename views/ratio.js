@@ -10,6 +10,7 @@ function createDivWithText(id, text, color) {
 
 // === Ratio Circle === //
 export function handle_user_ratio(ratio) {
+
   const audit_ratio = Math.round(ratio.auditRatio * 100) / 100;
   const radius = 45;
   const ratio_container = document.getElementById("svg_ratio");
@@ -19,26 +20,11 @@ export function handle_user_ratio(ratio) {
   const stroke_color = audit_ratio < 0.5 ? "#fff" : audit_ratio < 0.75 ? "#764ba2" : "#fff";
 
   const svg = createSvgElement("svg", {}, ["ratio-svg"]);
-  const circle = createSvgElement("circle", {
-    cx: 50,
-    cy: 50,
-    r: radius,
-    fill: color,
-    stroke: stroke_color,
-  });
-  const text = createSvgElement("text", {
-    x: 50,
-    y: 55,
-  }, ["ratio-text"]);
+  const circle = createSvgElement("circle", { cx: 50, cy: 50, r: radius, fill: color, stroke: stroke_color, });
+  const text = createSvgElement("text", { x: 50, y: 55, }, ["ratio-text"]);
+
   text.textContent = audit_ratio;
-
-  const messageText =
-    audit_ratio < 0.5
-      ? "Do more audits!"
-      : audit_ratio < 0.75
-        ? "You can do better!"
-        : "You are perfect";
-
+  const messageText = audit_ratio < 0.5 ? "Do more audits!" : audit_ratio < 0.75 ? "You can do better!" : "You are perfect";
   const messageDiv = createDivWithText("ratio_message", messageText, color);
 
   svg.append(circle, text);
@@ -47,6 +33,7 @@ export function handle_user_ratio(ratio) {
 
 // === Given & Taken Bars === //
 export function handle_given_taken_xps(ratio) {
+
   const container = document.getElementById("given_taken");
   const definition = document.getElementById("definition");
   if (!container || !definition) return;
@@ -80,7 +67,6 @@ export function handle_given_taken_xps(ratio) {
 
   // Function to create the SVG bars
   const createBars = () => {
-    const svgNS = "http://www.w3.org/2000/svg";
     const fallbackWidth = 300;
     const totalWidth = container.clientWidth || fallbackWidth;
 
@@ -94,18 +80,11 @@ export function handle_given_taken_xps(ratio) {
     const existingSvg = container.querySelector('.bars-svg');
     if (existingSvg) existingSvg.remove();
 
-    const svg = createSvgElement("svg", {
-      width: totalWidth,
-      height: svgHeight
-    }, ["bars-svg"]);
+    const svg = createSvgElement("svg", { width: totalWidth, height: svgHeight }, ["bars-svg"]);
 
-    const receivedRect = createSvgElement("rect", {
-      x: 0, y: 0, width: receivedWidth, height: rectHeight
-    }, ["received-bar"]);
+    const receivedRect = createSvgElement("rect", { x: 0, y: 0, width: receivedWidth, height: rectHeight }, ["received-bar"]);
 
-    const givenRect = createSvgElement("rect", {
-      x: 0, y: rectHeight + gap, width: givenWidth, height: rectHeight
-    }, ["given-bar"]);
+    const givenRect = createSvgElement("rect", { x: 0, y: rectHeight + gap, width: givenWidth, height: rectHeight }, ["given-bar"]);
 
     svg.append(receivedRect, givenRect);
     container.appendChild(svg);
