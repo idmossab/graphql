@@ -1,9 +1,4 @@
-function createSvgElement(tag, attributes = {}, classNames = []) {
-  const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
-  Object.entries(attributes).forEach(([key, value]) => el.setAttribute(key, value));
-  classNames.forEach(cls => el.classList.add(cls));
-  return el;
-}
+import { createSvgElement } from "../utils/svg.js";
 
 export function handle_user_level(level, totalXp = 0) {
   const user_level = document.getElementById("user_level");

@@ -1,12 +1,4 @@
-// === Helper Functions === //
-function createSvgElement(tag, attributes = {}, classNames = []) {
-  const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
-  for (const [key, value] of Object.entries(attributes)) {
-    el.setAttribute(key, value);
-  }
-  classNames.forEach(className => el.classList.add(className));
-  return el;
-}
+import { createSvgElement } from "../utils/svg.js";
 
 function createDivWithText(id, text, color) {
   const div = document.createElement("div");
