@@ -58,3 +58,10 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+  .profile-detail small {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #f1f5f9;
+  }

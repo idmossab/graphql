@@ -32,7 +32,7 @@ export function render_user_profile(user) {
                                 ? `
                                 <div class="profile-detail">
                                     <strong>Email</strong>
-                                    <small>${user.email}</small>
+                                    <small title="${user.email}">${user.email}</small>
                                 </div>
                             `
                                 : ""
