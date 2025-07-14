@@ -22,7 +22,6 @@
 .level-value {
   font-size: 16px;
   font-weight: 600;
-  fill: #1e293b;
   text-anchor: middle;
 }
 
@@ -30,7 +29,6 @@
   text-align: center;
   margin-top: 0.5rem;
   font-size: 0.9rem;
-  color: #64748b;
   font-weight: 500;
 }
 
@@ -39,7 +37,6 @@
   text-align: center;
   margin-top: 0.5rem;
   font-size: 0.8rem;
-  color: #94a3b8;
 }
 
 /* ===== LEVEL SECTION STYLES ===== */

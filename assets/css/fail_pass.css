@@ -1,6 +1,27 @@
 /* ===== FAIL/PASS CHART COMPONENT ===== */
+.svg-wrapper {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
 #xps_svg {
-    border: 1px solid rgba(102, 126, 234, 0.3);
-    width: 100%;
-    height: 300px;
-  }
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  width: 100%;
+  height: 100%;
+}
+
+.xp-bar {
+  fill: #667eea;
+}
+
+.score-text {
+  text-anchor: middle;
+  font-size: 11px;
+}
+
+.label-text {
+  text-anchor: middle;
+  font-size: 11px;
+  font-family: Segoe UI, sans-serif;
+}
