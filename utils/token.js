@@ -45,18 +45,30 @@ export function isValidJWT(token) {
   }
 }
 
-let lastToken = localStorage.getItem("access_token");
+window.addEventListener("storage", (event) => {
+  if (event.key === "access_token") {
+    console.log("Access token changed across tabs!");
 
-setInterval(() => {
-  const currentToken = localStorage.getItem("access_token");
-  
-  if (currentToken !== lastToken) {
-    lastToken = currentToken;
-
-    if (window.location.pathname === "/" && (!currentToken || !isValidJWT(currentToken))) {
-      console.log("Token changed or invalidated, redirecting to login");
+    const newToken = event.newValue;
+    if (!newToken || !isValidJWT(newToken)) {
       clear_app_state();
-      render_login_form(); 
+      render_login_form();
     }
   }
-}, 1000);
+});
+
+// let lastToken = localStorage.getItem("access_token");
+
+// setInterval(() => {
+//   const currentToken = localStorage.getItem("access_token");
+  
+//   if (currentToken !== lastToken) {
+//     lastToken = currentToken;
+
+//     if (window.location.pathname === "/" && (!currentToken || !isValidJWT(currentToken))) {
+//       console.log("Token changed or invalidated, redirecting to login");
+//       clear_app_state();
+//       render_login_form(); 
+//     }
+//   }
+// }, 1000);
