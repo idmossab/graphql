@@ -78,26 +78,14 @@ export function handle_given_taken_xps(ratio) {
   const up_percentage = ratio.totalUp / total_xp;
   const down_percentage = ratio.totalDown / total_xp;
 
-  const svgNS = "http://www.w3.org/2000/svg";
-  const fallbackWidth = 300; // Fallback if container has no width yet
-  const totalWidth = container.clientWidth || fallbackWidth;
-
-  const rectHeight = 10;
-  const gap = 5;
-  const svgHeight = rectHeight * 2 + gap;
-
-  const receivedWidth = up_percentage * totalWidth;
-  const givenWidth = down_percentage * totalWidth;
-
-  // define the chart:
+  // Create the definition elements
   let given = document.createElement("div");
   given.classList.add("give_take");
   let given_quad = document.createElement("div");
   given_quad.setAttribute("id", "given_quad");
   let given_text = document.createElement("small");
   given_text.setAttribute("id", "given_text");
-  given_text.textContent = `taken ${Math.round((ratio.totalDown / 1000000) * 100) / 100
-    } mb`;
+  given_text.textContent = `taken ${Math.round((ratio.totalDown / 1000000) * 100) / 100} mb`;
 
   given.append(given_quad, given_text);
 
@@ -107,33 +95,67 @@ export function handle_given_taken_xps(ratio) {
   taken_quad.setAttribute("id", "taken_quad");
   let taken_text = document.createElement("small");
   taken_text.setAttribute("id", "taken_text");
-  taken_text.textContent = `Received ${Math.round((ratio.totalUp / 1000000) * 100) / 100
-    } mb`;
+  taken_text.textContent = `Received ${Math.round((ratio.totalUp / 1000000) * 100) / 100} mb`;
 
   taken.append(taken_quad, taken_text);
 
   definition.append(given, taken);
 
-  const svg = document.createElementNS(svgNS, "svg");
-  svg.classList.add("bars-svg");
-  svg.style.width = totalWidth + "px";
-  svg.style.height = svgHeight + "px";
+  // Function to create/update the SVG bars
+  function createBars() {
+    const svgNS = "http://www.w3.org/2000/svg";
+    const fallbackWidth = 300;
+    const totalWidth = container.clientWidth || fallbackWidth;
+    
+    const rectHeight = 10;
+    const gap = 5;
+    const svgHeight = rectHeight * 2 + gap;
 
-  const receivedRect = document.createElementNS(svgNS, "rect");
-  receivedRect.setAttribute("x", 0);
-  receivedRect.setAttribute("y", 0);
-  receivedRect.setAttribute("width", receivedWidth);
-  receivedRect.setAttribute("height", rectHeight);
-  receivedRect.classList.add("received-bar");
+    const receivedWidth = up_percentage * totalWidth;
+    const givenWidth = down_percentage * totalWidth;
 
-  const givenRect = document.createElementNS(svgNS, "rect");
-  givenRect.setAttribute("x", 0);
-  givenRect.setAttribute("y", rectHeight + gap);
-  givenRect.setAttribute("width", givenWidth);
-  givenRect.setAttribute("height", rectHeight);
-  givenRect.classList.add("given-bar");
+    // Remove existing SVG if any
+    const existingSvg = container.querySelector('.bars-svg');
+    if (existingSvg) {
+      existingSvg.remove();
+    }
 
-  svg.appendChild(receivedRect);
-  svg.appendChild(givenRect);
-  container.appendChild(svg);
+    const svg = document.createElementNS(svgNS, "svg");
+    svg.classList.add("bars-svg");
+    svg.style.width = totalWidth + "px";
+    svg.style.height = svgHeight + "px";
+
+    const receivedRect = document.createElementNS(svgNS, "rect");
+    receivedRect.setAttribute("x", 0);
+    receivedRect.setAttribute("y", 0);
+    receivedRect.setAttribute("width", receivedWidth);
+    receivedRect.setAttribute("height", rectHeight);
+    receivedRect.classList.add("received-bar");
+
+    const givenRect = document.createElementNS(svgNS, "rect");
+    givenRect.setAttribute("x", 0);
+    givenRect.setAttribute("y", rectHeight + gap);
+    givenRect.setAttribute("width", givenWidth);
+    givenRect.setAttribute("height", rectHeight);
+    givenRect.classList.add("given-bar");
+
+    svg.appendChild(receivedRect);
+    svg.appendChild(givenRect);
+    container.appendChild(svg);
+  }
+
+  // Create initial bars
+  createBars();
+
+  // Add resize event listener to update bars on window resize
+  const resizeHandler = () => {
+    createBars();
+  };
+
+  // Remove any existing resize listener for this function
+  window.removeEventListener('resize', window.ratioResizeHandler);
+  
+  // Add new resize listener
+  window.ratioResizeHandler = resizeHandler;
+  window.addEventListener('resize', resizeHandler);
 }

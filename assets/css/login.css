@@ -6,7 +6,7 @@
     align-items: center;
     min-height: 100vh;
 
-    background-image: url("/assets/img/pic1.jpg"); /* <-- بدل المسار حسب مكان الصورة */
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

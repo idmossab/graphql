@@ -6,19 +6,6 @@
     border-radius: 50%;
     margin-right: 0.5rem;
   }
-  
-  .status-online {
-    background: linear-gradient(135deg, #10b981, #059669);
-  }
-  
-  .status-offline {
-    background: linear-gradient(135deg, #6b7280, #4b5563);
-  }
-  
-  .status-away {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-  }
-  
   /* ===== STATE COMPONENTS ===== */
   .loading {
     text-align: center;

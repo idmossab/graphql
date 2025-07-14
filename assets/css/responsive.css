@@ -46,6 +46,14 @@
     .no-data-message small {
       font-size: 0.8rem;
     }
+    #definition {
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+    .give_take {
+      justify-content: center;
+    }
   }
   
   /* ===== DARK THEME SUPPORT ===== */

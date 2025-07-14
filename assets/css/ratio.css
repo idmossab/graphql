@@ -13,6 +13,8 @@
 
 .bars-svg {
   /* Dynamic width and height set via JavaScript */
+  max-width: 100%;
+  height: auto;
 }
 
 .received-bar {
@@ -42,6 +44,8 @@
   align-items: center;
   border-top: 1px solid rgba(102, 126, 234, 0.3);
   padding-top: 5px;
+  /* Ensure container can resize */
+  box-sizing: border-box;
 }
 
 #definition {
@@ -51,6 +55,7 @@
   justify-content: space-evenly;
   align-items: center;
   gap: 10px;
+  margin-bottom: 10px;
 }
 
 .give_take {
@@ -65,11 +70,13 @@
 #taken_quad {
   width: 10px;
   height: 10px;
-  background: #667eea
+  background: #667eea;
+  flex-shrink: 0;
 }
 
 #given_quad {
   width: 10px;
   height: 10px;
-  background: #f43f5e
+  background: #f43f5e;
+  flex-shrink: 0;
 }
