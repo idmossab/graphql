@@ -16,15 +16,14 @@ export function handle_user_ratio(ratio) {
   const ratio_container = document.getElementById("svg_ratio");
   ratio_container.innerHTML = "";
 
-  const color = audit_ratio < 0.5 ? "#f43f5e" : audit_ratio < 0.75 ? "#f59e0b" : "#667eea";
-  const stroke_color = audit_ratio < 0.5 ? "#fff" : audit_ratio < 0.75 ? "#764ba2" : "#fff";
-
+  const color = audit_ratio < 0.5 ? "#f43f5e" : audit_ratio < 1.2 ? "#f59e0b" : "#667eea";
+  const stroke_color = "#fff";
   const svg = createSvgElement("svg", {}, ["ratio-svg"]);
   const circle = createSvgElement("circle", { cx: 50, cy: 50, r: radius, fill: color, stroke: stroke_color, });
   const text = createSvgElement("text", { x: 50, y: 55, }, ["ratio-text"]);
 
   text.textContent = audit_ratio;
-  const messageText = audit_ratio < 0.5 ? "Do more audits!" : audit_ratio < 0.75 ? "You can do better!" : "You are perfect";
+  const messageText = audit_ratio < 0.5 ? "Do more audits!" : audit_ratio < 1.2 ? "You can do better!" : "You are perfect";
   const messageDiv = createDivWithText("ratio_message", messageText, color);
 
   svg.append(circle, text);
