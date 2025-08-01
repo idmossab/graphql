@@ -1,14 +1,19 @@
 /* ===== FAIL/PASS CHART COMPONENT ===== */
 .svg-wrapper {
   width: 100%;
-  height: 300px;
-  overflow: hidden;
+  min-width: 0;
+  overflow-x: auto;
+  height: auto;
+  max-width: 100vw;
 }
 
 #xps_svg {
   border: 1px solid rgba(102, 126, 234, 0.3);
   width: 100%;
-  height: 100%;
+  min-width: 500px;   
+  max-width: 1200px;
+  height: 180px;
+  display: block;
 }
 
 .xp-bar {
